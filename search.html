@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Train Search</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            margin: 20px;
+        }
+        .search-container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .search-results {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Search Form -->
+    <div class="search-container">
+        <h2 class="text-center mb-4">Find Available Trains</h2>
+        <form action="{{ url_for('search') }}" method="POST">
+            <div class="form-group">
+                <label for="start">Start Station:</label>
+                <input type="text" id="start" name="start" class="form-control" placeholder="Enter start station" required>
+            </div>
+            <div class="form-group">
+                <label for="arrival">Arrival Station:</label>
+                <input type="text" id="arrival" name="arrival" class="form-control" placeholder="Enter arrival station" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Search</button>
+        </form>
+    </div>
+
+    <!-- Search Results -->
+    {% if trains %}
+    <div class="search-results">
+        <h3 class="text-center">Available Trains</h3>
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Train ID</th>
+                    <th>Train Name</th>
+                    <th>Start Station</th>
+                    <th>Arrival Station</th>
+                    <th>Departure Time</th>
+                    <th>Arrival Time</th>
+                    <th>Book</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for train in trains %}
+                <tr>
+                    <td>{{ train.train_id }}</td>
+                    <td>{{ train.train_name }}</td>
+                    <td>{{ train.start }}</td>
+                    <td>{{ train.arrival }}</td>
+                    <td>{{ train.departure_time }}</td>
+                    <td>{{ train.arrival_time }}</td>
+                    <td>
+                        <form action="{{ url_for('book') }}" method="POST">
+                            <input type="hidden" name="train_id" value="{{ train.train_id }}">
+                            <button type="submit" class="btn btn-success">Book</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="alert alert-warning text-center">
+        No trains available for the specified route.
+    </div>
+    {% endif %}
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Book Ticket</title>
+    <link href="https://fonts.googleapis.com/css?family=Merriweather:400,700&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Background styling and centering */
+        body.booking-background {
+            font-family: 'Merriweather', sans-serif;
+            background-image: url("{{ url_for('static', filename='background.jpg') }}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Container styling */
+        .booking-container {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 2rem;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .booking-container h2 {
+            color: #ffffff;
+            margin-bottom: 1rem;
+        }
+
+        .booking-container input,
+        .booking-container select,
+        .booking-container button {
+            width: 100%;
+            margin-bottom: 1rem;
+            padding: 0.8rem;
+            border-radius: 5px;
+            border: none;
+        }
+
+        .booking-container button {
+            background-color: #007bff;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        /* Adjusted button style to fit the Bootstrap theme */
+        .btn-custom {
+            background-color: #007bff;
+            color: #fff;
+            font-weight: bold;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body class="booking-background">
+    <div class="booking-container">
+        <h2>Book Your Ticket</h2>
+        <form action="/book_ticket" method="post">
+            <!-- Add inputs for booking details (example: source, destination, etc.) -->
+            <div class="form-group">
+                <input type="text" class="form-control" name="source" placeholder="Source" required>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="destination" placeholder="Destination" required>
+            </div>
+            <div class="form-group">
+                <select name="date" class="form-control" required>
+                    <option value="">Select Date</option>
+                    <option value="2024-11-15">November 15, 2024</option>
+                    <option value="2024-11-16">November 16, 2024</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-custom">Book Ticket</button>
+        </form>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Trains</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>Available Trains</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Train Name</th>
+                    <th>Start Station</th>
+                    <th>Arrival Station</th>
+                    <th>Departure Time</th>
+                    <th>Seats Available</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for train in trains %}
+                <tr>
+                    <td>{{ train.train_name }}</td>
+                    <td>{{ train.start_station }}</td>
+                    <td>{{ train.arrival_station }}</td>
+                    <td>{{ train.departure_time }}</td>
+                    <td>{{ train.seats_available }}</td>
+                    <td><a href="{{ url_for('book_ticket', train_id=train.train_id) }}" class="btn btn-success">Book</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

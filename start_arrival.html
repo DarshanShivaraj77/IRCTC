@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start and Arrival</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>Enter Train Details</h1>
+        <form method="POST">
+            <div class="form-group">
+                <label for="start_station">Start Station:</label>
+                <input type="text" class="form-control" name="start_station" required>
+            </div>
+            <div class="form-group">
+                <label for="arrival_station">Arrival Station:</label>
+                <input type="text" class="form-control" name="arrival_station" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+    </div>
+</body>
+</html>

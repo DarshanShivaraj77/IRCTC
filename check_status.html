@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Check Status</title>
+    <link href="https://fonts.googleapis.com/css?family=Merriweather:400,700&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Background styling and centering */
+        body.check-status-background {
+            font-family: 'Merriweather', sans-serif;
+            background-image: url("{{ url_for('static', filename='background.jpg') }}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Container styling */
+        .status-container {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 2rem;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .status-container h2 {
+            color: #ffffff;
+            margin-bottom: 1rem;
+        }
+
+        .status-container input,
+        .status-container button {
+            width: 100%;
+            margin-bottom: 1rem;
+            padding: 0.8rem;
+            border-radius: 5px;
+            border: none;
+        }
+
+        .status-container button {
+            background-color: #007bff;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        /* Adjusted button style to fit the Bootstrap theme */
+        .btn-custom {
+            background-color: #007bff;
+            color: #fff;
+            font-weight: bold;
+            padding: 10px;
+        }
+
+        /* Back to Home Button */
+        .btn-home {
+            background-color: #28a745;
+            color: #fff;
+            font-weight: bold;
+            padding: 10px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body class="check-status-background">
+    <div class="status-container">
+        <h2>Check Status</h2>
+        <form method="POST">
+            <div class="form-group">
+                <label for="ticket_id">Enter Ticket ID</label>
+                <input type="text" class="form-control" id="ticket_id" name="ticket_id" placeholder="Enter Ticket ID" required>
+            </div>
+
+            <button type="submit" class="btn btn-custom">Check Status</button>
+        </form>
+        
+        {% if ticket %}
+        <div class="mt-4">
+            <h3>Ticket Details</h3>
+            <p><strong>Ticket ID:</strong> {{ ticket.ticket_id }}</p>
+            <p><strong>Train Name:</strong> {{ ticket.train_name }}</p>
+            <p><strong>Source:</strong> {{ ticket.start_station_name }}</p>
+            <p><strong>Destination:</strong> {{ ticket.arrival_station_name }}</p>
+            <p><strong>Status:</strong> {{ ticket.status }}</p>
+        </div>
+        {% endif %}
+        
+        <!-- Back to Home Button -->
+        <a href="/" class="btn btn-home">Back to Home</a>
+    </div>
+
+    <script>
+        // No need to toggle the display for station name input anymore
+    </script>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

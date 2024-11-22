@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Available Trains</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Merriweather', sans-serif;
+            background-image: url("{{ url_for('static', filename='background.jpg') }}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            color: #fff;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .booking-container {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 2rem;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 900px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .booking-container h2 {
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .table {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-book {
+            background-color: #007bff;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .table th, .table td {
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .table thead {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .table tbody tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        .alert {
+            text-align: center;
+            font-size: 1.2rem;
+            padding: 1rem;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Flash Message Display -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="container">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+
+    <div class="booking-container">
+        <h2>Available Trains from {{ source }} to {{ destination }} on {{ date }}</h2>
+        
+        {% if trains %}
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Train Name</th>
+                        <th>Start Station</th>
+                        <th>Arrival Station</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for train in trains %}
+                    <tr>
+                        <td>{{ train.train_name }}</td>
+                        <td>{{ train.start_station_name }}</td>
+                        <td>{{ train.arrival_station_name }}</td>
+                        <td>
+                            <form action="/confirm_booking" method="post">
+                                <input type="hidden" name="train_id" value="{{ train.train_id }}">
+                                <button type="submit" class="btn btn-book">Book</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="alert alert-warning">No trains available for this route on the selected date.</p>
+        {% endif %}
+    </div>
+
+    <!-- Optional JavaScript for Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
